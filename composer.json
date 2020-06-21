@@ -1,0 +1,19 @@
+{
+    "name": "govindtomar/permission",
+    "description": "User and Role Permission Package",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Govind Tomar",
+            "email": "govindtomar01@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "GovindTomar\\Permission\\": "src/"
+        }
+    },
+}
