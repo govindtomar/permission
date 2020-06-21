@@ -16,4 +16,11 @@
             "GovindTomar\\Permission\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "GovindTomar\\Permission\\PermissionServiceProvider"
+            ]
+        }
+    }
 }

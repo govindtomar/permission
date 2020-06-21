@@ -21,3 +21,11 @@ class PermissionServiceProvider extends ServiceProvider
         $this->publishes([__DIR__.'/config/permission.php' => config_path('permission.php')], 'config');
     }
 }
+
+
+// "autoload-dev": {
+//     "psr-4": {
+//         "Tests\\": "tests/",
+//         "GovindTomar\\Permission\\": "package/govindtomar/permission/src/"
+//     }
+// },
