@@ -1,6 +1,8 @@
 # permission
 
+
 publish provider
+
 php artisan vendor:publish --provider=GovindTomar\Permission\PermissionServiceProvider
 
 Add middleware
