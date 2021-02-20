@@ -1,11 +1,10 @@
-@extends('layouts.admin.app')
-
+@extends(config('permission.layout'))
 
 @section('content')
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-12 col-xxl-12">
-            <form method="POST" action="{{ url('admin/role-permission/'.$role->url) }}">
+            <form method="POST" action="{{ url($route.'role/permission/'.$role->slug) }}">
                 @csrf
                 @method('PUT')
                 <div class="card">
@@ -15,17 +14,17 @@
                                 <input type="checkbox" checked  data-toggle="toggle" class="mr-2 btn-sm" data-onstyle="success" data-offstyle="danger" data-size="sm"> Check All
                             </label>
                         </h5>
-                        <button type="submit" class="btn btn-primary float-right"><i class="fa fa-file-o" aria-hidden="true"></i> Save Permission</button>
+                        <button type="submit" class="btn btn-primary float-right"><i class="{{ config('permission.save_icon') }}" aria-hidden="true"></i> Save Permission</button>
                     </div>                
                 </div>
                 @foreach($permissions as $permission)
-                <div class="card" id="{{ $role->url.'-'.$permission->route }}">
+                <div class="card" id="{{ $role->slug.'-'.$permission->route }}">
                     <div class="card-header" style="margin-bottom: 0;">
                         <h5 class="card-title">{{ $permission->name }}</h5>
-                        <button type="button"  class="btn btn-info float-right btn-xs" data-toggle="modal" data-target="#addNewPermission" onclick="setDataOnPopUp('{{ $role->url }}', '{{ $permission->route }}')"><i class="bx bx-plus"></i></button>
+                        <button type="button"  class="btn btn-info float-right btn-xs" data-toggle="modal" data-target="#addNewPermission" onclick="setDataOnPopUp('{{ $role->slug }}', '{{ $permission->route }}')"><i class="{{ config('permission.plus_icon') }}"></i></button>
                     </div>
                     <div class="card-body" style="margin-top: 0;">
-                        <ul class="nav">
+                        <ul class="nav mt-2">
                             @foreach($permission->role_permissions as $role_perm)
                                 <li class="nav-item mr-5">
                                     <label class="checkbox-inline nav-link pl-4 mr-3 mb-0">
@@ -44,7 +43,7 @@
                                 <input type="checkbox" checked  data-toggle="toggle" class="mr-2 btn-sm" data-onstyle="success" data-offstyle="danger" data-size="sm"> Check All
                             </label>
                         </h4>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-file-o" aria-hidden="true"></i> Save Permission</button>
+                        <button type="submit" class="btn btn-primary"><i class="{{ config('permission.save_icon') }}" aria-hidden="true"></i> Save Permission</button>
                     </div>                
                 </div>
             </form>
@@ -61,7 +60,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ url('admin/user') }}" method="POST" onsubmit="updateRouteForm(event)">
+            <form action="{{ url($route.'/user') }}" method="POST" onsubmit="updateRouteForm(event)">
             <div class="modal-body">                
                 <div class="form-group">
                     <label for="recipient-name" style="display: block;" class="col-form-label">Select Your Route Type</label>
@@ -85,7 +84,7 @@
                     <input type="hidden" class="form-control" name="" id="jsRoleRoute" value="">                    
                 </div>
                 <div class="form-group">
-                    <label for="routeViewDelete" class="col-form-label">Route Name / Not Url</label>                         
+                    <label for="routeViewDelete" class="col-form-label">Route Name / Not URL</label>                         
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="appendViewDelete">route</span>
@@ -94,7 +93,7 @@
                     </div>
                 </div>
                 <div class="form-group" id="routeNameCreateUpdateBlock">
-                    <label for="routeCreateUpdate" class="col-form-label">Route Name / Not Url</label>                           
+                    <label for="routeCreateUpdate" class="col-form-label">Route Name / Not URL</label>                           
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="appendCreateUpdate">route</span>
@@ -104,7 +103,7 @@
                 </div> 
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Send message</button>
+                <button type="submit" class="btn btn-primary"><i class="{{ config('permission.save_icon') }}"></i> Save Permission</button>
             </div>
             </form>
         </div>
@@ -113,6 +112,7 @@
 <script type="text/javascript">
     var site_name = '{{ url('/') }}';
     var token = '{{ csrf_token() }}';
+    var route = '{{ $route }}';
     function route_type_change(route_type){
         if (route_type == 'view-delete') {
             document.getElementById('routeNameCreateUpdateBlock').style.display = "none";
@@ -122,6 +122,7 @@
     }
 
     function setDataOnPopUp(role, permission){
+        console.log(role+'.'+permission);
         document.getElementById('appendViewDelete').innerHTML = role+'.'+permission+'.';
         document.getElementById('appendCreateUpdate').innerHTML = role+'.'+permission+'.';
         document.getElementById('appendPermission').value = permission;
@@ -183,7 +184,7 @@
         parm    +=  '&select='+radio;
         parm    +=  '&permission='+viewPermission;
 
-        xhttp.open("POST", site_name+"/admin/role-permission/add-new", true);
+        xhttp.open("POST", site_name+"/"+route+"role/permission/add-new", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(parm);
     }

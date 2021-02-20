@@ -1,5 +1,4 @@
-@extends('layouts.admin.app')
-
+@extends(config('permission.layout'))
 
 @section('content')
 <div class="container-fluid">
@@ -7,8 +6,8 @@
         <div class="col-xl-12 col-xxl-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Roles</h4>
-                    <a href="{{ url('admin/role/create') }}" class="btn btn-primary float-right">+ Add Role</a>
+                    <h4 class="card-title">Permissions</h4>
+                    <a href="{{ url($route.'permission/create') }}" class="btn btn-primary float-right"><i class="{{ config('permission.plus_icon') }}"></i> Add Permission</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -17,7 +16,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th scope="col">Name</th>
-									<th scope="col">Url</th>
+									<th scope="col">Route</th>
 									
                                     <th scope="col">Action</th>
                                 </tr>
@@ -26,25 +25,25 @@
                                 @php
                                     $table_counter = 1;
                                 @endphp
-                                @foreach ($roles as $role)
+                                @foreach ($permissions as $permission)
                                     <tr>
                                         <th>{{ $table_counter }}</th>
-                                        <td scope="col">{{ $role->name }}</td>
-										<td scope="col">{{ $role->url }}</td>
+                                        <td scope="col">{{ $permission->name }}</td>
+										<td scope="col">{{ $permission->route }}</td>
 										
                                         <td>
                                             <ul style="display: inline-flex;">
                                                 <li>
-                                                    <a href="{{ url('admin/role/'. $role->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                                                    <a href="{{ url($route.'permission/'. $permission->id) }}" class="btn btn-primary btn-sm"><i class="{{ config('permission.show_icon') }}"></i></a>
                                                 </li>
                                                 <li>
-                                                    <a href="{{ url('admin/role/'. $role->id.'/edit') }}" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                    <a href="{{ url($route.'permission/'. $permission->id.'/edit') }}" class="btn btn-success btn-sm"><i class="{{ config('permission.edit_icon') }}" aria-hidden="true"></i></a>
                                                 </li>
                                                 <li>
-                                                    <form id="back-delete-form" action="{{ url('admin/role', [$role->id]) }}" method="POST">
+                                                    <form id="back-delete-form" action="{{ url($route.'permission', [$permission->id]) }}" method="POST">
                                                       @csrf
                                                       {{method_field('DELETE')}}
-                                                      <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                                                      <button type="submit" class="btn btn-danger btn-sm"><i class="{{ config('permission.delete_icon') }}"></i></button>
                                                     </form>
                                                 </li>
                                             </ul>
@@ -57,7 +56,7 @@
                             </tbody>
                         </table>
                         <div class="index-pagination">
-                            {{ $roles->links() }}
+                            {{ $permissions->links() }}
                         </div>
                     </div>
                 </div>

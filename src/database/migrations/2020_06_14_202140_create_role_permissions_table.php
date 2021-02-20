@@ -25,6 +25,7 @@ class CreateRolePermissionsTable extends Migration
             $table->boolean('status')->nullable();
             $table->boolean('display')->nullable();
             $table->string('display_name')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

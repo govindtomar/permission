@@ -8,7 +8,7 @@ class PermissionServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        
+
     }
 
     public function boot()
@@ -18,7 +18,18 @@ class PermissionServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
         $this->mergeConfigFrom(__DIR__.'/config/permission.php', 'permission');
 
-        $this->publishes([__DIR__.'/config/permission.php' => config_path('permission.php')], 'config');
+        $this->publishes([
+            __DIR__.'/config/permission.php' => config_path('permission.php')
+        ], 'config');
+        $this->publishes([
+            __DIR__.'/database/migrations/' => database_path('migrations')
+        ],'migrations');
+        $this->publishes([
+            __DIR__.'/Http/Middleware' => app_path('Http/Middleware')
+        ],'Middleware');
+        $this->publishes([
+            __DIR__.'/views/layouts' => resource_path('views/layouts')
+        ],'views');
     }
 }
 
@@ -29,3 +40,5 @@ class PermissionServiceProvider extends ServiceProvider
 //         "GovindTomar\\Permission\\": "package/govindtomar/permission/src/"
 //     }
 // },
+
+// php artisan vendor:publish --provider="GovindTomar\Permission\PermissionServiceProvider"
