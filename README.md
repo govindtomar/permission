@@ -19,5 +19,5 @@ $table->foreign('role_id')->references('id')->on('roles');
 Add in each controller
 
 public function __construct(){
-    $this->middleware(['web', 'permission']);
+    $this->middleware('permission');
 }
