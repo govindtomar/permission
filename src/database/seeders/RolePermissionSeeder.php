@@ -18,7 +18,15 @@ class RolePermissionSeeder extends Seeder
     {
         $roles = Role::all();
         $permissions = Permission::all();
-        $routes = ['create' => 'Create', 'store' => 'NULL', 'show' => 'View', 'index' => 'NULL', 'update' => 'Update', 'edit' => 'NULL', 'destroy' => 'Delete'];
+        $routes = [
+        	'create'	=> 	'Create', 
+        	'store'		=> 	'NULL', 
+        	'show'		=> 	'View', 
+        	'index' 	=> 	'NULL', 
+        	'update' 	=> 	'Update', 
+        	'edit' 		=>	'NULL', 
+        	'destroy' 	=>	'Delete'
+        ];
         
         foreach ($permissions as $key => $permission) {
 	        foreach ($roles as $key => $role) {
