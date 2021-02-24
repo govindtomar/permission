@@ -3,6 +3,7 @@
 namespace GovindTomar\Permission;
 
 use Illuminate\Support\ServiceProvider;
+use GovindTomar\Permission\Commands\Permission;
 
 class PermissionServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,13 @@ class PermissionServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/views/layouts' => resource_path('views/layouts')
         ],'views');
+
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Permission::class,
+            ]);
+        }
     }
 }
 

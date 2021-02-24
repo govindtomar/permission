@@ -4,6 +4,8 @@ namespace GovindTomar\Permission\Commands;
 
 use Illuminate\Console\Command;
 use GovindTomar\Permission\Database\Seeders\RoleSeeder;
+use GovindTomar\Permission\Database\Seeders\PermissionSeeder;
+use GovindTomar\Permission\Database\Seeders\RolePermissionSeeder;
 
 class Permission extends Command
 {
@@ -38,10 +40,13 @@ class Permission extends Command
      */
     public function handle()
     {
-
-        dd('gggg');
-
         $role = new RoleSeeder;
         $role->run();
+
+        $permission = new PermissionSeeder;
+        $permission->run();
+
+        $rolePermission = new RolePermissionSeeder;
+        $rolePermission->run();
     }
 }
